@@ -1,0 +1,49 @@
+﻿@model Entidades.Usuario
+
+@{
+    ViewBag.Title = "User";
+}
+
+<h2>Quitar permisos de administrador</h2>
+
+<h3 class="text-danger">¿Estás seguro de quitar los permisos a este usuario?</h3>
+<p>Ya no podrá acceder a la sección de administración.</p>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        
+        <dt>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Rol)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Rol)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Quitar permisos" class="btn btn-primary" /> 
+            @Html.ActionLink("Cancelar", "Index", null, new { @class="btn btn-secondary" })
+        </div>
+    }
+</div>

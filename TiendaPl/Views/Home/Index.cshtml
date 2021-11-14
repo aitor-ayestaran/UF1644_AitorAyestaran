@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Entidades.Producto>
+
+@{
+    ViewBag.Title = "Productos";
+}
+@using (Html.BeginForm("Buscar", "Home"))
+{
+    <p>
+        <input type="text" name="nombre" />
+        <button class="btn btn-primary">Buscar</button>
+    </p>
+}
+<h1 style="width: 100%; text-align: center">Supermercado Aitor</h1>
+
+
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 row-cols-xxl-6">
+    @foreach (var item in Model)
+    {
+        <div class="col">
+            <div class="card h-100">
+                <img src="~/imgs/@item.Foto" class="card-img-top h-50" alt="@Html.DisplayFor(modelItem => item.Nombre)">
+                <div class="card-body h-40">
+                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.Nombre)</h5>
+                    <p class="card-text">@Html.DisplayNameFor(model => model.Precio): @Html.DisplayFor(modelItem => item.Precio)</p>
+                    <p class="card-text">Precio por @Html.DisplayFor(modelItem => item.Unidad): @Html.DisplayFor(modelItem => item.PrecioUnidad)</p>
+                    <a class="btn btn-primary stretched-link" href="@Url.Action("DetalleProducto", "Home", new { id = item.Id })">Ver detalles del producto</a>
+                </div>
+                <div class="card-footer h-10">
+                    @if (item.Descuento != 0)
+                    {
+                        <p class="card-text">@Html.DisplayNameFor(model => model.Descuento): @Html.DisplayFor(modelItem => item.Descuento) %</p>
+                        <p class="card-text fw-bold">@Bll.PublicoBll.PrecioConDescuento(item).ToString("c")</p>
+
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>
+

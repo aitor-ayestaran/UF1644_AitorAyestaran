@@ -1,0 +1,44 @@
+﻿@model Entidades.Producto
+
+@{
+    ViewBag.Title = Model.Nombre;
+}
+
+<h2>Ficha de Producto</h2>
+
+<div>
+    <h4>@Html.DisplayFor(model => model.Nombre)</h4>
+
+    <div class="card mb-3">
+        <div class="row g-0">
+            <div class="col-md-4">
+                <img src="~/imgs/@Html.DisplayFor(model => model.Foto)" class="img-fluid rounded-start" alt="...">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">@Html.DisplayFor(model => model.Nombre)</h5>
+                    <p class="card-text">@Html.DisplayFor(model => model.Precio)</p>
+                    <p class="card-text">Precio por @Html.DisplayFor(model => model.Unidad): @Html.DisplayFor(model => model.PrecioUnidad)</p>
+                    @if (Model.Descuento != 0)
+                    {
+                        <p class="card-text">@Html.DisplayNameFor(model => model.Descuento): @Html.DisplayFor(model => model.Descuento) %</p>
+                        <p class="card-text fw-bold">@Bll.PublicoBll.PrecioConDescuento(Model).ToString("c")</p>
+
+                    }
+
+                    @using (Html.BeginForm("AgregarCarrito", "Compra", new { id = Model.Id }))
+                    {
+                        <p>Cantidad: <input type="number" step="1" min="1" name="cantidad" value="1" /></p>
+                        <p><button class="btn btn-primary">Añadir al carrito</button></p>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<p>
+    <a class="btn btn-secondary" href="@Url.Action("Index", "Home")">Volver a productos</a>
+</p>

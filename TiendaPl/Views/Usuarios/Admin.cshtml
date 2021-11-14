@@ -1,0 +1,48 @@
+﻿@model Entidades.Usuario
+
+@{
+    ViewBag.Title = "Nuevo administrador";
+}
+
+<h2>Nuevo administrador</h2>
+
+<h3 class="text-danger">¿Estás seguro de que quieres que este usuario sea administrador?</h3>
+<p>Podrá acceder a toda la gestón de mantenimiento. Solamente un usuario de confianza debe poder ser administrador.</p>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Rol)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Rol)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Confirmar" class="btn btn-primary" /> 
+            @Html.ActionLink("Cancelar", "Index", null, new { @class="btn btn-secondary" })
+        </div>
+    }
+</div>

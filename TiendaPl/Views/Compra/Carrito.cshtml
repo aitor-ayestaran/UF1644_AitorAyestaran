@@ -1,0 +1,62 @@
+﻿@model Entidades.Carrito
+
+@{
+    ViewBag.Title = "Carrito";
+}
+
+<h2>Carrito de @Model.Usuario.Nombre</h2>
+
+<div>
+    <h4></h4>
+    <hr />
+
+
+    @if (Model.Detalles?.Count() != 0)
+    {
+        <table class="table table-bordered table-hover table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>Nombre</th>
+                    <th class="text-end">Precio unidad</th>
+                    <th class="text-center">Cantidad</th>
+                    <th class="text-end">Precio total</th>
+                    <th>Opciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var detalle in Model.Detalles)
+                {
+                    <tr>
+                        <td>@detalle.Producto.Nombre</td>
+                        <td class="text-end">@detalle.Producto.PrecioConDescuento.ToString("c");</td>
+
+                        <td class="text-center">
+                            @Html.ActionLink("-", "RestarCarrito", "Compra", new { id = detalle.Producto.Id }, new { @class = "btn fw-bolder btn-secondary" })
+                            @detalle.Cantidad
+                            @Html.ActionLink("+", "AgregarCarrito", "Compra", new { id = detalle.Producto.Id, cantidad = 1 }, new { @class = "btn fw-bolder btn-secondary" })
+
+                        </td>
+                        <td class="text-end">@detalle.Precio.ToString("c")</td>
+                        <td><a class="btn btn-danger" href="@Url.Action("BorrarProducto", new { id = detalle.Producto.Id })">Borrar</a></td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot class="table-dark">
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <th class="text-end">@Model.Precio.ToString("c")</th>
+                    <td></td>
+                </tr>
+            </tfoot>
+        </table>
+    }
+    @if (Model.Detalles.Count() == 0)
+    {
+        <h5>No hay productos en el carrito</h5>
+    }
+</div>
+<p>
+    @Html.ActionLink("Volver", "Index", "Home", null, new { @class = "btn btn-secondary" })
+</p>
